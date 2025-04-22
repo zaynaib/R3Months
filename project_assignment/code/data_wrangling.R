@@ -23,21 +23,19 @@ childcare_2018 %>%
 
 
 #Question 2 - who has the lowest childcare
-raw_data_childcare %>% 
+childcare_2018 %>%  
   drop_na(median_center_infant) %>% 
-  filter(study_year == 2018) %>% 
   group_by(state_name) %>% 
-  summarise(low_childcare = min(median_center_infant)) %>% 
+  summarise(low_childcare = mean(median_center_infant)) %>% 
   arrange(low_childcare)
 
-raw_data_childcare %>% 
-  filter(study_year == 2018) %>% 
-  group_by(state_name) %>% 
-  summarise(max_income = max(median_income_2018)) %>% 
-  arrange(desc(max_income))
+#Question 3 - which county in illinois pays the most of childcare
+childcare_2018 %>%  
+  filter(state_name == 'Illinois') %>% 
+  arrange(desc(median_center_infant)) %>% 
+  select(county_name,median_income_2018,median_center_infant,poverty_families)
+
+# In 2018 childcare was about 1140 a month in Illinois. Now 2025 childcare is about 2k in Illinois
   
 
-raw_data_childcare %>% 
-  filter(study_year == 2018 & state_name == 'Virginia') %>% 
-  View()
-  
+
